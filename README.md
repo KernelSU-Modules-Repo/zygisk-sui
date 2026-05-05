@@ -1,5 +1,5 @@
 # Sui
-[🇨🇳中文README](docs/README.zh-CN.md)    
+[🇨🇳中文README](https://github.com/XiaoTong6666/Sui/blob/main/README.zh-CN.md)    
 
 Modern super user interface (SUI) implementation on Android. <del>The name, Sui, also comes from [a character](https://github.com/XiaoTong6666/Sui/issues/1).</del>
 
