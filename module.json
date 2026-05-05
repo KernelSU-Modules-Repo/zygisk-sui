@@ -1,0 +1,17 @@
+{
+  "metamodule": false,
+  "summary": "Fork by XiaoTong. Modern superuser interface implementation for Android root apps.",
+  "sourceUrl": "https://github.com/XiaoTong6666/Sui",
+  "additionalAuthors": [
+    {
+      "type": "add",
+      "name": "Rikka",
+      "link": "https://github.com/RikkaApps/Sui"
+    },
+    {
+      "type": "add",
+      "name": "Sui Contributors",
+      "link": "https://github.com/XiaoTong6666/Sui/graphs/contributors"
+    }
+  ]
+}
