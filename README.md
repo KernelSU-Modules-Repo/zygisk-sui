@@ -78,6 +78,35 @@ Since Sui does not add files to `PATH`, the required files need to be copied man
 
 After the files are correctly copied, use `rish` as `sh` to start an interactive shell.
 
+### adb root
+
+Sui also provides optional `adb root` support. When enabled, Sui sets up an `adbd` wrapper plus preload hook so that `adbd` can run under the current root implementation's SELinux domain while keeping the expected `adbd` socket label.
+
+This feature is disabled by default. Enable it by creating one of the following marker files from a root shell, then reboot so Sui can apply the setup during `post-fs-data`:
+
+* Enable for the next boot only:
+
+  ```sh
+  touch /data/adb/sui/enable_adb_root_once
+  ```
+
+* Enable persistently for every boot:
+
+  ```sh
+  touch /data/adb/sui/enable_adb_root
+  ```
+
+After reboot, use `adb root` normally.
+
+To disable the persistent mode again:
+
+```sh
+rm /data/adb/sui/enable_adb_root
+```
+> This feature depends on your root implementation and SELinux policy. Sui checks the required `setcurrent`, `dyntransition`, and `setsockcreate` permissions before enabling it.
+> Existing app behavior does not change. This only affects the device `adbd` path.
+> If your device uses a heavily customized `adbd` implementation, compatibility may vary.
+
 ## Application development guide
 
 Sui app development should still primarily follow the upstream Shizuku API documentation:
@@ -189,7 +218,7 @@ For example:
 
 Sui requires [Zygisk](https://github.com/topjohnwu/zygisk-module-sample). Zygisk allows us to inject into system_server, SystemUI, Settings and related app processes.
 
-In short, there are five parts:
+Overall, there are five main parts, and an optional `adb root` path:
 
 * **Root process**
 
@@ -222,6 +251,12 @@ In short, there are five parts:
   * Replaces `ActivityThread` instrumentation during Settings process startup
   * Maintains dynamic/pinned shortcuts and handles pinned-shortcut requests relayed from SystemUI
   * When the target `Activity` intent carries the Sui extra and token, instantiates and displays `SuiActivity` instead
+
+* **adbd wrapper / preload (optional)**
+
+  * During `post-fs-data`, when `adb root` support is enabled, Sui prepares an `adbd` wrapper and preload library for `/apex/com.android.adbd/bin/adbd` or `/system/bin/adbd`
+  * The wrapper rewrites `--root_seclabel=...` to the current root implementation's SELinux domain and injects `LD_PRELOAD`
+  * The preload hook intercepts `selinux_android_setcon()` / `setcon()` so `adbd` can switch into the root domain while restoring `sockcreate` to the expected `adbd` label
 
 ## License
 
