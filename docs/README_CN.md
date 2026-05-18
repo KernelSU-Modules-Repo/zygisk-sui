@@ -1,5 +1,7 @@
 # Sui
 
+[🇺🇸English README](https://github.com/XiaoTong6666/Sui/blob/main/README.md) | [🇯🇵日本語README](https://github.com/XiaoTong6666/Sui/blob/main/README.ja.md)
+
 用于 Android 的现代超级用户界面（SUI）实现。~~名字 Sui 也来自于一个[角色](https://github.com/XiaoTong6666/Sui/issues/1)。~~
 
 ## 简介
@@ -64,7 +66,7 @@ Sui 按 UID 保存应用的权限状态。主要模式包括：
 * **允许 root**：应用会被路由到 root 后端，相关 API 以 root 身份执行。
 * **允许 shell**：应用会被路由到 shell 后端，相关 API 以 shell 身份执行。
 * **拒绝**：拒绝应用使用 Sui。
-* **隐藏**：对目标应用隐藏 Sui。开启隐藏后，目标应用 UID 会在 Native Binder `ExecTransact` 阶段被拦截，其发起的 Sui bridge transaction 会被直接吞掉，无法继续进入 BridgeService 获取 Sui Binder。
+* **隐藏**：对目标应用隐藏 Sui。开启隐藏后，目标应用 UID 会在 Native Binder `execTransact` 阶段被拦截，其发起的 Sui bridge transaction 会被直接吞掉，无法继续进入 BridgeService 获取 Sui Binder。
 
 修改权限状态后，Sui 可能会强制停止受影响应用，以切断旧 Binder 句柄，并让应用下次启动时获取正确的后端。
 

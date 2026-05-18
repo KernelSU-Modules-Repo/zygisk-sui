@@ -1,8 +1,8 @@
 # Sui
 
-[🇨🇳中文README](https://github.com/XiaoTong6666/Sui/blob/main/README.zh-CN.md)
+[🇨🇳中文README](https://github.com/XiaoTong6666/Sui/blob/main/README.zh-CN.md) | [🇯🇵日本語README](https://github.com/XiaoTong6666/Sui/blob/main/README.ja.md)
 
-Modern super user interface (SUI) implementation on Android. ~~The name, Sui, also comes from [a character](https://github.com/XiaoTong6666/Sui/issues/1).~~
+Modern super user interface (SUI) implementation for Android. ~~The name, Sui, also comes from [a character](https://github.com/XiaoTong6666/Sui/issues/1).~~
 
 ## Introduction
 
@@ -66,7 +66,7 @@ Sui stores permission states by UID. The main modes are:
 * **Allow root**: the app will be routed to the root backend.
 * **Allow shell**: the app will be routed to the shell backend.
 * **Deny**: deny the app from using Sui.
-* **Hide**: hide Sui from the target app. When Hide is enabled, the target app UID is intercepted in the Native Binder `ExecTransact` stage. Its Sui bridge transaction is swallowed before it can enter BridgeService and obtain the Sui Binder.
+* **Hide**: hide Sui from the target app. When Hide is enabled, the target app UID is intercepted in the Native Binder `execTransact` stage. Its Sui bridge transaction is swallowed before it can enter BridgeService and obtain the Sui Binder.
 
 When the permission state changes, Sui may force-stop affected apps to cut off old Binder handles and make them obtain the correct backend on the next launch.
 
