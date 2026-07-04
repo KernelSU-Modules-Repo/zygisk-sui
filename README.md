@@ -168,7 +168,7 @@ Common APIs include:
 
 ## Build
 
-Clone with submodules:
+> **Note:** Clone the repository with submodules, otherwise required API projects will be missing.
 
 ```bash
 git clone --recurse-submodules https://github.com/XiaoTong6666/Sui.git
@@ -213,6 +213,42 @@ For example:
 ./gradlew :module:zipRelease
 ./gradlew :module:flashRelease
 ```
+
+## Troubleshooting
+
+### Capture Sui logs
+
+```sh
+adb logcat -v time | grep -i sui
+```
+
+### How to report problems
+
+If you need to report a problem, please provide logs reproduced on a **debug** build.
+
+- Install or flash a **debug** build of Sui and reproduce the issue.
+- If you use **KernelSU** or **APatch**, export logs from the root manager first. These logs are usually more complete for module mounting, Zygisk injection, SELinux, and early boot/runtime issues.
+- Also [capture Sui logs](#capture-sui-logs).
+- Include basic environment information:
+  - root implementation and version
+  - Zygisk implementation and version
+  - Android version / ROM
+  - whether `SystemUI` or `Settings` is in DenyList
+  - exact reproduction steps
+
+If the issue cannot be reproduced on the debug build and only happens on release builds, include a short description of the release-only behavior and the exact reproduction steps.
+
+### Cannot access the Sui management interface
+
+- Your root environment is supported (Magisk with Zygisk enabled, or KernelSU/APatch with a compatible Zygisk implementation).
+- `SystemUI` and `Settings` are **not** included in the Zygisk DenyList.
+- The device has been rebooted after installing or updating Sui.
+
+### Optional features do not work as expected
+
+- Reboot once after changing Sui module files or marker files.
+- If needed, export logs from KernelSU / APatch and [capture Sui logs](#capture-sui-logs).
+- If needed, also inspect the files under `/data/adb/sui/` to confirm marker files and generated artifacts are present.
 
 ## Internals
 
